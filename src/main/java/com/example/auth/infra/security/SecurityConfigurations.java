@@ -39,6 +39,10 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
+
+                        // 👇 LINHA ADICIONADA: Libera o acesso visual para a tela de login
+                        .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.html", "/*.css", "/*.js", "/assets/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(
