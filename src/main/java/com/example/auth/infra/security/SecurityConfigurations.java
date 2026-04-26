@@ -40,13 +40,14 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
 
-                        // 👇 CORREÇÃO: Liberando arquivos soltos na raiz (/*) e dentro de pastas (/**)
+                        // 👇 ADICIONADO O "/error" NO FINAL DA LISTA
                         .requestMatchers(HttpMethod.GET,
                                 "/",
                                 "/*.html", "/**/*.html",
                                 "/*.css", "/**/*.css",
                                 "/*.js", "/**/*.js",
-                                "/assets/**"
+                                "/assets/**",
+                                "/error"  // <--- O SEGREDO ESTÁ AQUI
                         ).permitAll()
 
                         .anyRequest().authenticated()
