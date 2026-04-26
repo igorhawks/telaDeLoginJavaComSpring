@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8081/auth";
+const API_URL = "http://72.60.55.125:8080/auth";
 
 function showRegister() {
     document.getElementById("loginForm").classList.add("hidden");

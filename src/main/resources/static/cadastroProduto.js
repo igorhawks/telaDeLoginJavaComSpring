@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8081/product";
+const API_URL = "http://72.60.55.125:8080/product";
 
 async function createProduct() {
 
