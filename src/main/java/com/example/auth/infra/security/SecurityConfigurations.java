@@ -40,15 +40,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
 
-                        // 👇 ADICIONADO O "/error" NO FINAL DA LISTA
-                        .requestMatchers(HttpMethod.GET,
-                                "/",
-                                "/*.html", "/**/*.html",
-                                "/*.css", "/**/*.css",
-                                "/*.js", "/**/*.js",
-                                "/assets/**",
-                                "/error"  // <--- O SEGREDO ESTÁ AQUI
-                        ).permitAll()
+                        // 👇 REVERTIDO: A regra exata que fazia seu HTML, CSS e JS funcionarem
+                        .requestMatchers(HttpMethod.GET, "/", "/*.html", "/*.css", "/*.js").permitAll()
 
                         .anyRequest().authenticated()
                 )
