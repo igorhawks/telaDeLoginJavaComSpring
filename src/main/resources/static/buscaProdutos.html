@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(255,255,255,0.08);
+            font-weight: 600;
+        }
+
+        tr {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: white;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(14,165,233,0.4);
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Lista de Produtos</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+        </tr>
+        </thead>
+        <tbody id="tabelaProdutos">
+        </tbody>
+    </table>
+
+    <div class="message" id="mensagem"></div>
+
+    <button class="btn" onclick="voltar()">
+        Voltar para Tela Inicial
+    </button>
+
+</div>
+
+<script>
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        window.location.href = "index.html";
+    }
+
+    async function carregarProdutos() {
+
+        try {
+
+            const response = await fetch("http://localhost:8081/product", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao buscar produtos");
+            }
+
+            const produtos = await response.json();
+
+            const tabela = document.getElementById("tabelaProdutos");
+
+            tabela.innerHTML = "";
+
+            if (produtos.length === 0) {
+                document.getElementById("mensagem").innerText = "Nenhum produto cadastrado.";
+                return;
+            }
+
+            produtos.forEach(produto => {
+
+                const linha = document.createElement("tr");
+
+                linha.innerHTML = `
+                    <td>${produto.id}</td>
+                    <td>${produto.name}</td>
+                    <td>R$ ${Number(produto.price).toFixed(2)}</td>
+                `;
+
+                tabela.appendChild(linha);
+
+            });
+
+        } catch (error) {
+
+            document.getElementById("mensagem").innerText = "Erro ao carregar produtos.";
+
+            console.error(error);
+
+        }
+
+    }
+
+    function voltar() {
+        window.location.href = "telainicial.html";
+    }
+
+    carregarProdutos();
+
+</script>
+
+</body>
+</html>

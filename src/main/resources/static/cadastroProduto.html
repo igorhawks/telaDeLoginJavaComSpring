@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produto</title>
+
+    <!-- Fonte igual às outras telas -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="cadastroProduto.js"></script>
+    <link rel="stylesheet" href="cadastroProduto.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Cadastro de Produto</h2>
+
+    <input
+            type="text"
+            id="productName"
+            placeholder="Nome do produto"
+    >
+
+    <input
+            type="number"
+            id="productPrice"
+            placeholder="Preço do produto"
+            step="0.01"
+    >
+
+    <button onclick="createProduct()">
+        Cadastrar Produto
+    </button>
+
+    <button class="voltar" onclick="voltarHome()">
+        Voltar para Home
+    </button>
+
+    <div
+            id="productMessage"
+            class="message"
+    ></div>
+
+</div>
+
+</body>
+</html>
