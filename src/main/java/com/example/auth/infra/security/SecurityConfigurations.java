@@ -40,9 +40,14 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
 
-                        // 👇 LINHA ADICIONADA: Libera o acesso visual para a tela de login
-                        // O /** garante que o Spring não bloqueie o visual, independente da pasta
-                        .requestMatchers(HttpMethod.GET, "/", "/**/*.html", "/**/*.css", "/**/*.js", "/assets/**").permitAll()
+                        // 👇 CORREÇÃO: Liberando arquivos soltos na raiz (/*) e dentro de pastas (/**)
+                        .requestMatchers(HttpMethod.GET,
+                                "/",
+                                "/*.html", "/**/*.html",
+                                "/*.css", "/**/*.css",
+                                "/*.js", "/**/*.js",
+                                "/assets/**"
+                        ).permitAll()
 
                         .anyRequest().authenticated()
                 )
