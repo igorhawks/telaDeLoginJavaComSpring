@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth System</title>
+
+    <!-- Fonte moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div id="loginForm">
+        <h2>Login</h2>
+
+        <input type="text" id="loginUsername" placeholder="Usuário">
+        <input type="password" id="loginPassword" placeholder="Senha">
+
+        <button onclick="login()">Entrar</button>
+
+        <div class="switch" onclick="showRegister()">
+            Criar nova conta
+        </div>
+
+        <div class="message" id="loginMessage"></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="registerForm" class="hidden">
+        <h2>Cadastro</h2>
+
+        <input type="text" id="registerUsername" placeholder="Usuário">
+        <input type="password" id="registerPassword" placeholder="Senha">
+
+        <select id="registerRole">
+            <option value="USER">Usuário</option>
+            <option value="ADMIN">Administrador</option>
+        </select>
+
+        <button onclick="register()">Cadastrar</button>
+
+        <div class="switch" onclick="showLogin()">
+            Já possui conta? Fazer login
+        </div>
+
+        <div class="message" id="registerMessage"></div>
+    </div>
+
+</div>
+
+</body>
+</html>
